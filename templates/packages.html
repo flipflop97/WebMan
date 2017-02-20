@@ -1,11 +1,12 @@
 {% extends "main.html" %}
 {% block body %}
     <div class="card">
-        {% for pkgname, pkgdesc, installed in packages %}
+        {% for pkgname, pkgdesc, pkgver, installed in packages %}
             <div class="package" id="package-{{ pkgname }}" onclick="expand('{{ pkgname }}')">
                 <img class="icon" src="/icon/{{ pkgname }}"></img>
                 <div class="title">{{ pkgname }}</div>
                 <div class="description">{{ pkgdesc }}</div>
+                <div class="version">{{ pkgver }}</div>
                 {% if installed %}
                     <div class="button uninstall" id="button-{{ pkgname }}" onclick="uninstall('{{ pkgname }}')"></div>
                 {% else %}

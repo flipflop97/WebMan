@@ -65,11 +65,11 @@ div.package {
     width: 100%;
     height: 64px;
     background: #FFFFFF;
-    overflow: auto;
+    overflow: hidden;
     cursor: pointer;
 }
 div.package.expanded {
-    height: 128px;
+    height: 120px;
 }
 div.package:hover {
     background: #FAFAFA;
@@ -114,6 +114,24 @@ div.package.expanded > div.description {
     left: 16px;
 }
 
+div.package > div.version {
+    position: absolute;
+    left: 16px;
+    top: 64px;
+    width: calc(100% - 32px);
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgba(0, 0, 0, 0.54);
+}
+div.package > div.version::before {
+    content: 'version ';
+}
+div.package.expanded > div.version {
+    top: 88px;
+}
+
 div.package > div.button {
     position: absolute;
     right: 8px;
@@ -122,11 +140,15 @@ div.package > div.button {
     width: 96px;
     height: 32px;
     color: #FFFFFF;
+    background: #9E9E9E;
     font-size: 16px;
     text-align: center;
     border-radius: 4px;
     cursor: pointer;
     line-height: 32px;
+}
+div.package > div.button::before {
+    content: 'Busy';
 }
 
 div.package > div.button.install::before {

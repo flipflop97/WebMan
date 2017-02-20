@@ -11,15 +11,17 @@ function expand(id) {
 
 function install(pkgname) {
     button = document.getElementById('button-' + pkgname);
+    button.onclick = null;
     button.classList.remove('install');
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             status = parseInt(this.responseText);
             if (status == 0) {
-                button.classList.add('uninstall');
                 button.onclick = function(){uninstall(pkgname);};
+                button.classList.add('uninstall');
             } else {
+                button.onclick = function(){install(pkgname);};
                 button.classList.add('install');
             }
         }
@@ -30,15 +32,17 @@ function install(pkgname) {
 
 function uninstall(pkgname) {
     button = document.getElementById('button-' + pkgname);
+    button.onclick = null;
     button.classList.remove('uninstall');
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             status = parseInt(this.responseText);
             if (status == 0) {
-                button.classList.add('install');
                 button.onclick = function(){install(pkgname);};
+                button.classList.add('install');
             } else {
+                button.onclick = function(){uninstall(pkgname);};
                 button.classList.add('uninstall');
             }
         }

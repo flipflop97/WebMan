@@ -21,6 +21,7 @@ from subprocess import Popen, PIPE
 
 skipIcons = True
 publicHost = True
+port = 1436
 
 
 def loadJson(url):
@@ -37,7 +38,7 @@ def packageInstalled(pkgname):
 
 def searchPackages(name):
     results = loadJson('https://www.archlinux.org/packages/search/json/?q=%s' % name)['results']
-    packages = [(package['pkgname'], package['pkgdesc'], packageInstalled(package['pkgname']))
+    packages = [(package['pkgname'], package['pkgdesc'], package['pkgver'], packageInstalled(package['pkgname']))
                 for package in results if package['arch'] in (arch, 'any')]
     packages.sort(key=lambda x: levdist(name, x[0]))
     return packages
@@ -115,6 +116,6 @@ def uninstall(pkgname):
 
 if __name__ == "__main__":
     if publicHost:
-        app.run(host='0.0.0.0', port=1436)
+        app.run(host='0.0.0.0', port=port)
     else:
-        app.run(port=1436)
+        app.run(port=port)
