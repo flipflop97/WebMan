@@ -57,6 +57,10 @@ div.card {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+div.packagecontainer {
+    position: relative;
+}
+
 div.package {
     display: block;
     position: relative;
@@ -132,7 +136,7 @@ div.package.expanded > div.version {
     top: 88px;
 }
 
-div.package > div.button {
+div.packagecontainer > div.button {
     position: absolute;
     right: 8px;
     top: 8px;
@@ -147,36 +151,36 @@ div.package > div.button {
     cursor: pointer;
     line-height: 32px;
 }
-div.package > div.button::before {
+div.packagecontainer > div.button::before {
     content: 'Busy';
 }
 
-div.package > div.button.install::before {
+div.packagecontainer > div.button.install::before {
     content: 'Install';
 }
-div.package > div.button.install {
+div.packagecontainer > div.button.install {
     background: #4CAF50;
 }
-div.package > div.button.install:hover {
+div.packagecontainer > div.button.install:hover {
     background: #66BB6A;
 }
 
-div.package > div.button.update::before {
+div.packagecontainer > div.button.update::before {
     content: 'Update';
 }
-div.package > div.button.update {
+div.packagecontainer > div.button.update {
     background: #FFC107;
 }
-div.package > div.button.update:hover {
+div.packagecontainer > div.button.update:hover {
     background: #FFCA28;
 }
 
-div.package > div.button.uninstall::before {
+div.packagecontainer > div.button.uninstall::before {
     content: 'Uninstall';
 }
-div.package > div.button.uninstall {
+div.packagecontainer > div.button.uninstall {
     background: #F44336;
 }
-div.package > div.button.uninstall:hover {
+div.packagecontainer > div.button.uninstall:hover {
     background: #EF5350;
 }

@@ -2,11 +2,13 @@
 {% block body %}
     <div class="card">
         {% for pkgname, pkgdesc, pkgver, installed, expanded in packages %}
-            <div class="{% if expanded %}expanded {% endif %}package" id="package-{{ pkgname }}" onclick="expand('{{ pkgname }}')">
-                <img class="icon" src="/icon/{{ pkgname }}"></img>
-                <div class="title">{{ pkgname }}</div>
-                <div class="description">{{ pkgdesc }}</div>
-                <div class="version">{{ pkgver }}</div>
+            <div class="packagecontainer">
+                <div class="{% if expanded %}expanded {% endif %}package" id="package-{{ pkgname }}" onclick="expand('{{ pkgname }}')">
+                    <img class="icon" src="/icon/{{ pkgname }}"></img>
+                    <div class="title">{{ pkgname }}</div>
+                    <div class="description">{{ pkgdesc }}</div>
+                    <div class="version">{{ pkgver }}</div>
+                </div>
                 {% if installed %}
                     <div class="button uninstall" id="button-{{ pkgname }}" onclick="uninstall('{{ pkgname }}')"></div>
                 {% else %}
