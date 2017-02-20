@@ -37,8 +37,9 @@ def packageInstalled(pkgname):
 
 
 def searchPackages(name):
+    name = name.lower()
     results = loadJson('https://www.archlinux.org/packages/search/json/?q=%s' % name)['results']
-    packages = [(package['pkgname'], package['pkgdesc'], package['pkgver'], packageInstalled(package['pkgname']))
+    packages = [(package['pkgname'], package['pkgdesc'], package['pkgver'], packageInstalled(package['pkgname']), name == package['pkgname'])
                 for package in results if package['arch'] in (arch, 'any')]
     packages.sort(key=lambda x: levdist(name, x[0]))
     return packages
