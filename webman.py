@@ -101,7 +101,7 @@ def icon(pkgname):
 
 @app.route('/install/<pkgname>')
 def install(pkgname):
-    p = Popen(['pkexec', 'pacman', '-Sy', '--noconfirm', pkgname], stderr=PIPE, stdout=PIPE)
+    p = Popen(['pkexec', 'pacman', '-Syu', '--noconfirm', pkgname], stderr=PIPE, stdout=PIPE)
     data = p.communicate()
     return str(p.returncode)
 
