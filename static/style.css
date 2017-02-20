@@ -129,7 +129,7 @@ div.package.expanded > div.description {
     left: 16px;
 }
 
-div.package > div.url {
+div.package + div.url {
     position: absolute;
     left: 16px;
     top: 72px;
@@ -140,7 +140,7 @@ div.package > div.url {
     text-overflow: ellipsis;
     color: rgba(0, 0, 0, 0.54);
 }
-div.package.expanded > div.url {
+div.package.expanded + div.url {
     top: 96px;
 }
 
