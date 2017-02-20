@@ -115,6 +115,6 @@ def uninstall(pkgname):
 
 if __name__ == "__main__":
     if publicHost:
-        app.run(host='0.0.0.0')
+        app.run(host='0.0.0.0', port=1436)
     else:
-        app.run()
+        app.run(port=1436)
