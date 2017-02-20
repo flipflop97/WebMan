@@ -63,6 +63,7 @@ div.card {
 
 div.packagecontainer {
     position: relative;
+    overflow: hidden;
 }
 
 div.package {
