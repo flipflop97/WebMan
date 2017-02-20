@@ -17,7 +17,7 @@ div.header {
     display: block;
     position: fixed;
     width: 100%;
-    height: 64px;
+    height: 56px;
     z-index: 10;
     background: #3F51B5;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -25,7 +25,7 @@ div.header {
 
 div.content {
     margin: 0px auto 0px auto;
-    padding: 96px 0px 32px 0px;
+    padding: 88px 0px 32px 0px;
     max-width: 720px;
     z-index: 5;
 }
@@ -40,7 +40,7 @@ div.headercontent > input[type=search] {
     padding: 0px 12px 0px 12px;
     margin: 8px;
     font-size: 16px;
-    height: 48px;
+    height: 40px;
     background: #5C6BC0;
     color: #FFFFFF;
     border-radius: 4px;
@@ -71,13 +71,13 @@ div.package {
     margin-top: 1px;
     min-height: 64px;
     width: 100%;
-    height: 64px;
+    height: 72px;
     background: #FFFFFF;
     overflow: hidden;
     cursor: pointer;
 }
 div.package.expanded {
-    height: 144px;
+    height: 152px;
 }
 div.package:hover {
     background: #FAFAFA;
@@ -85,8 +85,8 @@ div.package:hover {
 
 div.package > div.icon {
     position: absolute;
-    left: 8px;
-    top: 8px;
+    left: 12px;
+    top: 12px;
     width: 48px;
     height: 48px;
     border-radius: 24px;
@@ -96,34 +96,27 @@ div.package > div.icon {
     line-height: 48px;
     font-size: 24px;
 }
-div.package > img.icon {
-    position: absolute;
-    left: 8px;
-    top: 8px;
-    width: 48px;
-    height: 48px;
-}
 
 div.package > div.title {
     position: absolute;
-    left: 64px;
-    top: 10px;
-    width: calc(100% - 192px);
+    left: 72px;
+    top: 14px;
+    width: calc(100% - 204px);
     font-size: 16px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 div.package.expanded > div.title {
-    top: 18px;
+    top: 20px;
     font-size: 24px;
 }
 
 div.package > div.description {
     position: absolute;
-    left: 64px;
-    top: 34px;
-    width: calc(100% - 192px);
+    left: 72px;
+    top: 38px;
+    width: calc(100% - 204px);
     font-size: 16px;
     white-space: nowrap;
     overflow: hidden;
@@ -131,16 +124,16 @@ div.package > div.description {
     color: rgba(0, 0, 0, 0.54);
 }
 div.package.expanded > div.description {
-    top: 68px;
-    width: calc(100% - 32px);
+    top: 72px;
+    width: calc(100% - 34px);
     left: 16px;
 }
 
 div.package > div.url {
     position: absolute;
     left: 16px;
-    top: 64px;
-    width: calc(100% - 32px);
+    top: 72px;
+    width: calc(100% - 34px);
     font-size: 16px;
     white-space: nowrap;
     overflow: hidden;
@@ -148,14 +141,14 @@ div.package > div.url {
     color: rgba(0, 0, 0, 0.54);
 }
 div.package.expanded > div.url {
-    top: 92px;
+    top: 96px;
 }
 
 div.package > div.version {
     position: absolute;
     left: 16px;
-    top: 88px;
-    width: calc(100% - 32px);
+    top: 96px;
+    width: calc(100% - 34px);
     font-size: 16px;
     white-space: nowrap;
     overflow: hidden;
@@ -166,13 +159,13 @@ div.package > div.version::before {
     content: 'version ';
 }
 div.package.expanded > div.version {
-    top: 116px;
+    top: 120px;
 }
 
 div.packagecontainer > div.button {
     position: absolute;
-    right: 8px;
-    top: 16px;
+    right: 12px;
+    top: 20px;
     padding: 8px;
     width: 92px;
     height: 16px;
