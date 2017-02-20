@@ -12,14 +12,12 @@ from subprocess import Popen, PIPE
 
 
 # TODO
-# Icon caching
-# Optimize icon finding
-# Placeholder icons like Telegram
+# Icon caching/optimize icon finding
 # Display pacman errors
 # AUR support
 
 
-skipIcons = True
+# Flags
 publicHost = True
 port = 1436
 

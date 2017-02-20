@@ -107,21 +107,22 @@ div.package > img.icon {
 div.package > div.title {
     position: absolute;
     left: 64px;
-    top: 6px;
+    top: 10px;
     width: calc(100% - 192px);
-    font-size: 24px;
+    font-size: 16px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 div.package.expanded > div.title {
     top: 18px;
+    font-size: 24px;
 }
 
 div.package > div.description {
     position: absolute;
     left: 64px;
-    top: 36px;
+    top: 34px;
     width: calc(100% - 192px);
     font-size: 16px;
     white-space: nowrap;
@@ -171,17 +172,17 @@ div.package.expanded > div.version {
 div.packagecontainer > div.button {
     position: absolute;
     right: 8px;
-    top: 8px;
+    top: 16px;
     padding: 8px;
-    width: 96px;
-    height: 32px;
+    width: 92px;
+    height: 16px;
     color: #FFFFFF;
     background: #9E9E9E;
     font-size: 16px;
     text-align: center;
     border-radius: 4px;
     cursor: pointer;
-    line-height: 32px;
+    line-height: 16px;
 }
 div.packagecontainer > div.button::before {
     content: 'Busy';
