@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>WebMan</title>
+        <meta charset="UTF-8" />
+        <meta name="theme-color" content="#3F51B5" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="icon" sizes="256x256" href="{{ url_for('static', filename='icon.png') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </head>
+    <body>
+        <div class="header">
+            <div class="headercontent">
+                <input type="search" placeholder="Search packages" id="searchbar" onsearch="search();">
+            </div>
+        </div>
+        <div class="content">
+            {% block body %}{% endblock %}
+        </div>
+    </body>
+</html>

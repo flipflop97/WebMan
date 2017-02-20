@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+{% block body %}
+    <div class="card">
+        {% for pkgname, pkgdesc, installed in packages %}
+            <div class="package" id="package-{{ pkgname }}" onclick="expand('{{ pkgname }}')">
+                <img class="icon" src="/icon/{{ pkgname }}"></img>
+                <div class="title">{{ pkgname }}</div>
+                <div class="description">{{ pkgdesc }}</div>
+                {% if installed %}
+                    <div class="button uninstall" id="button-{{ pkgname }}" onclick="uninstall('{{ pkgname }}')"></div>
+                {% else %}
+                    <div class="button install" id="button-{{ pkgname }}" onclick="install('{{ pkgname }}')"></div>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="package">
+                <div class="title">No packages found</div>
+                <div class="description">No packages found</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
