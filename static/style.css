@@ -9,6 +9,10 @@ body {
     color: rgba(0, 0, 0, 0.87);
 }
 
+a {
+    color: inherit;
+}
+
 div.header {
     display: block;
     position: fixed;
@@ -73,12 +77,25 @@ div.package {
     cursor: pointer;
 }
 div.package.expanded {
-    height: 120px;
+    height: 144px;
 }
 div.package:hover {
     background: #FAFAFA;
 }
 
+div.package > div.icon {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    background: #FF9800;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 48px;
+    font-size: 24px;
+}
 div.package > img.icon {
     position: absolute;
     left: 8px;
@@ -113,15 +130,30 @@ div.package > div.description {
     color: rgba(0, 0, 0, 0.54);
 }
 div.package.expanded > div.description {
-    top: 64px;
+    top: 68px;
     width: calc(100% - 32px);
     left: 16px;
+}
+
+div.package > div.url {
+    position: absolute;
+    left: 16px;
+    top: 64px;
+    width: calc(100% - 32px);
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgba(0, 0, 0, 0.54);
+}
+div.package.expanded > div.url {
+    top: 92px;
 }
 
 div.package > div.version {
     position: absolute;
     left: 16px;
-    top: 64px;
+    top: 88px;
     width: calc(100% - 32px);
     font-size: 16px;
     white-space: nowrap;
@@ -133,7 +165,7 @@ div.package > div.version::before {
     content: 'version ';
 }
 div.package.expanded > div.version {
-    top: 88px;
+    top: 116px;
 }
 
 div.packagecontainer > div.button {

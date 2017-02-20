@@ -1,12 +1,13 @@
 {% extends "main.html" %}
 {% block body %}
     <div class="card">
-        {% for pkgname, pkgdesc, pkgver, installed, expanded in packages %}
+        {% for pkgname, pkgdesc, pkgver, url, installed, expanded in packages %}
             <div class="packagecontainer">
                 <div class="{% if expanded %}expanded {% endif %}package" id="package-{{ pkgname }}" onclick="expand('{{ pkgname }}')">
-                    <img class="icon" src="/icon/{{ pkgname }}"></img>
+                    <div class="icon">{{ pkgname[0].upper() }}</div>
                     <div class="title">{{ pkgname }}</div>
                     <div class="description">{{ pkgdesc }}</div>
+                    <div class="url"><a href="{{ url }}" target="_blank">{{ url }}</a></div>
                     <div class="version">{{ pkgver }}</div>
                 </div>
                 {% if installed %}

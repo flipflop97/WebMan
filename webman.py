@@ -39,7 +39,7 @@ def packageInstalled(pkgname):
 def searchPackages(name):
     name = name.lower()
     results = loadJson('https://www.archlinux.org/packages/search/json/?q=%s' % name)['results']
-    packages = [(package['pkgname'], package['pkgdesc'], package['pkgver'], packageInstalled(package['pkgname']), name == package['pkgname'])
+    packages = [(package['pkgname'], package['pkgdesc'], package['pkgver'], package['url'], packageInstalled(package['pkgname']), name == package['pkgname'])
                 for package in results if package['arch'] in (arch, 'any')]
     packages.sort(key=lambda x: levdist(name, x[0]))
     return packages
@@ -87,7 +87,7 @@ def search(pkgname):
 
 @app.route('/icon/<pkgname>')
 def icon(pkgname):
-    if skipIcons or pkgname == '@noicon':
+    if pkgname == '@noicon':
         return app.send_static_file('noicon.svg')
 
     info = getPackageInfo(pkgname)
