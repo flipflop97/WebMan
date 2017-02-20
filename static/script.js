@@ -18,7 +18,7 @@ function install(pkgname) {
             status = parseInt(this.responseText);
             if (status == 0) {
                 button.classList.add('uninstall');
-                button.onclick = install(pkgname);
+                button.onclick = function(){install(pkgname);}
             } else {
                 button.classList.add('install');
             }
@@ -37,7 +37,7 @@ function uninstall(pkgname) {
             status = parseInt(this.responseText);
             if (status == 0) {
                 button.classList.add('install');
-                button.onclick = uninstall(pkgname);
+                button.onclick = function(){uninstall(pkgname);}
             } else {
                 button.classList.add('uninstall');
             }

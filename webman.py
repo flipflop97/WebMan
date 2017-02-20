@@ -20,9 +20,8 @@ from subprocess import Popen, PIPE
 
 
 skipIcons = True
+publicHost = True
 
-
-arch = machine()
 
 def loadJson(url):
     pool = PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=where())
@@ -70,6 +69,7 @@ def getShortcutIcon(packageUrl):
 
 
 app = Flask(__name__)
+arch = machine()
 
 
 @app.route('/')
@@ -114,4 +114,7 @@ def uninstall(pkgname):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    if publicHost:
+        app.run(host='0.0.0.0')
+    else:
+        app.run()
