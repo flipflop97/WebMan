@@ -83,6 +83,11 @@ def search(pkgname):
     return render_template('packages.html', packages=packages)
 
 
+@app.route('/updates')
+def updates():
+    return render_template('main.html')
+
+
 @app.route('/icon/<pkgname>')
 def icon(pkgname):
     if pkgname == '@noicon':
@@ -101,7 +106,7 @@ def icon(pkgname):
 
 @app.route('/install/<pkgname>')
 def install(pkgname):
-    p = Popen(['pkexec', 'pacman', '-Syu', '--noconfirm', pkgname], stderr=PIPE, stdout=PIPE)
+    p = Popen(['pkexec', 'pacman', '-S', '--noconfirm', pkgname], stderr=PIPE, stdout=PIPE)
     data = p.communicate()
     return str(p.returncode)
 
