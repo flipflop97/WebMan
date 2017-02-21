@@ -43,6 +43,7 @@ div.headercontent > img.logo {
     top: 12px;
     width: 32px;
     height: 32px;
+    cursor: pointer;
 }
 
 div.headercontent > input[type=search] {
