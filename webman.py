@@ -12,7 +12,6 @@ from subprocess import Popen, PIPE
 
 
 # TODO
-# Icon caching/optimize icon finding
 # Display pacman errors
 # AUR support
 

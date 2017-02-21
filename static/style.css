@@ -25,7 +25,7 @@ div.header {
 
 div.content {
     margin: 0px auto 0px auto;
-    padding: 88px 0px 32px 0px;
+    padding: 88px 0px 0px 0px;
     max-width: 720px;
     z-index: 5;
 }
