@@ -44,6 +44,10 @@ div.headercontent > img.logo {
     width: 32px;
     height: 32px;
     cursor: pointer;
+    opacity: 0.7;
+}
+div.headercontent > img.logo:hover {
+    opacity: 1.0;
 }
 
 div.headercontent > input[type=search] {
@@ -54,7 +58,7 @@ div.headercontent > input[type=search] {
     left: 56px;
     font-size: 16px;
     height: 40px;
-    background: #5C6BC0;
+    background: rgba(255, 255, 255, 0.2);
     color: #FFFFFF;
     border-radius: 4px;
     border: none;
@@ -64,6 +68,9 @@ div.headercontent > input[type=search]::-webkit-input-placeholder {
 }
 div.headercontent > input[type=search]::-moz-placeholder {
     color: #FFFFFF;
+}
+div.headercontent > input[type=search]:focus {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 div.headercontent > img.updates {
