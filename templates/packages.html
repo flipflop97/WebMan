@@ -1,28 +1,25 @@
 {% extends "main.html" %}
 {% block body %}
-    <div class="card">
-        {% for pkgname, pkgdesc, pkgver, url, installed, expanded in packages %}
-            <div class="packagecontainer">
-                <div class="{% if expanded %}expanded {% endif %}package" id="package-{{ pkgname }}" onclick="expand('{{ pkgname }}')">
-                    <div class="icon">{{ pkgname[0].upper() }}</div>
-                    <div class="title">{{ pkgname }}</div>
-                    <div class="description">{{ pkgdesc }}</div>
-                    <div class="version">{{ pkgver }}</div>
+    {% if packages %}
+        <div class="card">
+            {% for pkgname, pkgdesc, pkgver, url, installed, expanded in packages %}
+                <div class="packagecontainer">
+                    <div class="{% if expanded %}expanded {% endif %}package" id="package-{{ pkgname }}" onclick="expand('{{ pkgname }}')">
+                        <div class="icon">{{ pkgname[0].upper() }}</div>
+                        <div class="title">{{ pkgname }}</div>
+                        <div class="description">{{ pkgdesc }}</div>
+                        <div class="version">{{ pkgver }}</div>
+                    </div>
+                    <div class="url"><a href="{{ url }}" target="_blank">{{ url }}</a></div>
+                    {% if installed %}
+                        <div class="button uninstall" id="button-{{ pkgname }}" onclick="uninstall('{{ pkgname }}')"></div>
+                    {% else %}
+                        <div class="button install" id="button-{{ pkgname }}" onclick="install('{{ pkgname }}')"></div>
+                    {% endif %}
                 </div>
-                <div class="url"><a href="{{ url }}" target="_blank">{{ url }}</a></div>
-                {% if installed %}
-                    <div class="button uninstall" id="button-{{ pkgname }}" onclick="uninstall('{{ pkgname }}')"></div>
-                {% else %}
-                    <div class="button install" id="button-{{ pkgname }}" onclick="install('{{ pkgname }}')"></div>
-                {% endif %}
-            </div>
-        {% else %}
-            <div class="packagecontainer">
-                <div class="package">
-                    <div class="title">No packages found</div>
-                    <div class="description">This message should be replaced by a better placeholder</div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="message">No packages found</div>
+    {% endif %}
 {% endblock %}

@@ -89,7 +89,7 @@ div.headercontent > img.updates:hover {
     opacity: 1.0;
 }
 
-div.card {
+div.content > div.card {
     display: block;
     width: 100%;
     min-height: 64px;
@@ -97,7 +97,7 @@ div.card {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-div.update {
+div.content > div.update {
     display: block;
     box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
     padding: 8px;
@@ -111,18 +111,27 @@ div.update {
     line-height: 16px;
     margin-left: auto;
 }
-div.update::before {
+div.content > div.update::before {
     content: 'Busy';
 }
-div.update.enabled {
+div.content > div.update.enabled {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     background: #4CAF50;
     cursor: pointer;
 }
-div.update.enabled::before {
+div.content > div.update.enabled::before {
     content: 'Update';
 }
 
+div.content > div.message {
+    display: block;
+    width: calc(100% - 32px);
+    font-size: 32px;
+    color: rgba(0, 0, 0, 0.54);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 div.packagecontainer {
     position: relative;
