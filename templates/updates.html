@@ -1,0 +1,21 @@
+{% extends "main.html" %}
+{% block body %}
+    {% if packages %}
+        <div class="enabled update" id="update" onclick="update()"></div>
+            <div class="card">
+            {% for pkgname, pkgdesc, pkgver, url in packages %}
+                <div class="packagecontainer">
+                    <div class="package" id="package-{{ pkgname }}" onclick="expand('{{ pkgname }}')">
+                        <div class="icon">{{ pkgname[0].upper() }}</div>
+                        <div class="title">{{ pkgname }}</div>
+                        <div class="description">{{ pkgdesc }}</div>
+                        <div class="version">{{ pkgver }}</div>
+                    </div>
+                    <div class="url"><a href="{{ url }}" target="_blank">{{ url }}</a></div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="message">No updates found</div>
+    {% endif %}
+{% endblock %}
