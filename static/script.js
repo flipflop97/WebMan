@@ -9,6 +9,11 @@ function expand(id) {
     package.classList.toggle('expanded');
 }
 
+function showIcon(id) {
+    document.getElementById('icon-' + id).style.opacity = 1.0;
+    document.getElementById('iconph-' + id).style.opacity = 0.0;
+}
+
 function install(pkgname) {
     button = document.getElementById('button-' + pkgname);
     button.onclick = null;

@@ -168,6 +168,16 @@ div.package > div.icon {
     text-align: center;
     line-height: 48px;
     font-size: 24px;
+    opacity: 1;
+}
+
+div.package > img.icon {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    width: 48px;
+    height: 48px;
+    opacity: 0;
 }
 
 div.package > div.title {

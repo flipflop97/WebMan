@@ -24,7 +24,7 @@ port = 1436
 
 def loadJson(url):
     pool = PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=where())
-    request = pool.request('GET', url)
+    request = pool.request('GET', url, timeout=0.5)
     return loads(request.data)
 
 
@@ -62,18 +62,24 @@ def getPackageInfo(packageName):
     return packageInfo
 
 
-def getShortcutIcon(packageUrl):
+def getShortcutIcon(pkgname):
     try:
-        pool = PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=where())
-        pageRequest = pool.request('GET', packageUrl)
-        pageContent = pageRequest.data
-        pageSoup = BeautifulSoup(pageContent, 'html.parser')
-        iconLink = pageSoup.find('link', rel='icon')['href']
-        iconUrl = urljoin(packageUrl, iconLink)
-    except:
-        iconUrl = None
+        return getShortcutIcon.cache[pkgname]
+    except AttributeError:
+        getShortcutIcon.cache = {}
+    except KeyError:
+        try:
+            packageUrl = getPackageInfo(pkgname)['url']  # Slow
+            pool = PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=where())
+            pageRequest = pool.request('GET', packageUrl, timeout=0.5)  # Very slow
+            pageContent = pageRequest.data
+            pageSoup = BeautifulSoup(pageContent, 'html.parser')
+            iconLink = pageSoup.find('link', rel='icon')['href']
+            getShortcutIcon.cache[pkgname] = urljoin(packageUrl, iconLink)
+        except:
+            getShortcutIcon.cache[pkgname] = None
 
-    return iconUrl
+    return getShortcutIcon(pkgname)
 
 
 
@@ -100,16 +106,9 @@ def updates():
 
 @app.route('/icon/<pkgname>')
 def icon(pkgname):
-    if pkgname == '@noicon':
-        return app.send_static_file('noicon.svg')
-
-    info = getPackageInfo(pkgname)
-    if info is None:
-        return redirect('/icon/@noicon')
-
-    icon = getShortcutIcon(info['url'])
+    icon = getShortcutIcon(pkgname)
     if icon is None:
-        return redirect('/icon/@noicon')
+        return ''
 
     return redirect(icon)
 
@@ -137,7 +136,7 @@ def uninstall(pkgname):
 
 if __name__ == "__main__":
     if publicHost:
-        app.run(host='0.0.0.0', port=port)
+        app.run(host='0.0.0.0', port=port, threaded=True)
     else:
-        app.run(port=port)
+        app.run(port=port, threaded=True)
 
