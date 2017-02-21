@@ -76,7 +76,7 @@ def getShortcutIcon(pkgname):
             iconLink = pageSoup.find('link', rel='icon')['href']
             getShortcutIcon.cache[pkgname] = urljoin(packageUrl, iconLink)
         except:
-            getShortcutIcon.cache[pkgname] = None
+            getShortcutIcon.cache[pkgname] = urljoin(packageUrl, '/favicon.ico')
 
     return getShortcutIcon(pkgname)
 
