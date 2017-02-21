@@ -88,7 +88,7 @@ arch = machine()
 
 @app.route('/')
 def root():
-    return render_template('main.html')
+    return render_template('message.html', message='Welcome to WebMan! Search for packages or check updates in the bar on the top of your screen.')
 
 
 @app.route('/search/<pkgname>')
@@ -131,6 +131,16 @@ def uninstall(pkgname):
     p = Popen(['pkexec', 'pacman', '-Rn', '--noconfirm', pkgname], stderr=PIPE, stdout=PIPE)
     data = p.communicate()
     return str(p.returncode)
+
+
+@app.errorhandler(404)
+def e404(_):
+    return render_template('message.html', message='Sorry, this page doesn\'t exist.')
+
+
+@app.errorhandler(500)
+def e500(_):
+    return render_template('message.html', message='Sorry, this page couldn\'t be loaded. Do you have a working internet connection?')
 
 
 if __name__ == "__main__":
