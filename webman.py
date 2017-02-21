@@ -43,6 +43,15 @@ def searchPackages(name):
     return packages
 
 
+def getUpdates():
+    p = Popen(['checkupdates'], stderr=PIPE, stdout=PIPE)
+    data = p.communicate()
+    stdout = [text.split() for text in data[0].decode('utf-8').split('\n') if text]
+    results = [getPackageInfo(line[0]) for line in stdout]
+    packages = [(package['pkgname'], package['pkgdesc'], package['pkgver'], package['url']) for package in results]
+    return packages
+
+
 def getPackageInfo(packageName):
     try:
         packageInfo = loadJson('https://www.archlinux.org/packages/search/json/?name=%s' % packageName)
@@ -85,7 +94,8 @@ def search(pkgname):
 
 @app.route('/updates')
 def updates():
-    return render_template('main.html')
+    packages = getUpdates()
+    return render_template('updates.html', packages=packages)
 
 
 @app.route('/icon/<pkgname>')
@@ -111,6 +121,13 @@ def install(pkgname):
     return str(p.returncode)
 
 
+@app.route('/update')
+def update():
+    p = Popen(['pkexec', 'pacman', '-Syu', '--noconfirm'], stderr=PIPE, stdout=PIPE)
+    data = p.communicate()
+    return str(p.returncode)
+
+
 @app.route('/uninstall/<pkgname>')
 def uninstall(pkgname):
     p = Popen(['pkexec', 'pacman', '-Rn', '--noconfirm', pkgname], stderr=PIPE, stdout=PIPE)
@@ -123,3 +140,4 @@ if __name__ == "__main__":
         app.run(host='0.0.0.0', port=port)
     else:
         app.run(port=port)
+

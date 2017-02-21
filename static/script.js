@@ -50,3 +50,23 @@ function uninstall(pkgname) {
     xhttp.open("GET", "/uninstall/" + pkgname, true);
     xhttp.send();
 }
+
+function update() {
+    button = document.getElementById('update');
+    button.onclick = null;
+    button.classList.remove('enabled');
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            status = parseInt(this.responseText);
+            if (status == 0) {
+                location.reload()
+            } else {
+                button.onclick = function(){update();};
+                button.classList.add('enabled');
+            }
+        }
+    };
+    xhttp.open("GET", "/update", true);
+    xhttp.send();
+}

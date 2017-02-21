@@ -29,6 +29,9 @@ div.content {
     max-width: 720px;
     z-index: 5;
 }
+div.content > * {
+    margin: 0px 0px 32px 0px;
+}
 
 div.headercontent {
     position: relative;
@@ -93,6 +96,33 @@ div.card {
     background: #DDDDDD;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
+
+div.update {
+    display: block;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+    padding: 8px;
+    width: 92px;
+    height: 16px;
+    color: #FFFFFF;
+    background: #9E9E9E;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 4px;
+    line-height: 16px;
+    margin-left: auto;
+}
+div.update::before {
+    content: 'Busy';
+}
+div.update.enabled {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    background: #4CAF50;
+    cursor: pointer;
+}
+div.update.enabled::before {
+    content: 'Update';
+}
+
 
 div.packagecontainer {
     position: relative;
@@ -223,16 +253,6 @@ div.packagecontainer > div.button.install {
 }
 div.packagecontainer > div.button.install:hover {
     background: #66BB6A;
-}
-
-div.packagecontainer > div.button.update::before {
-    content: 'Update';
-}
-div.packagecontainer > div.button.update {
-    background: #FFC107;
-}
-div.packagecontainer > div.button.update:hover {
-    background: #FFCA28;
 }
 
 div.packagecontainer > div.button.uninstall::before {
