@@ -6,7 +6,8 @@
             {% for pkgname, pkgdesc, pkgver, url in packages %}
                 <div class="packagecontainer">
                     <div class="package" id="package-{{ pkgname }}" onclick="expand('{{ pkgname }}')">
-                        <div class="icon">{{ pkgname[0].upper() }}</div>
+                        <div class="icon" id="iconph-{{ pkgname }}">{{ pkgname[0].upper() }}</div>
+                        <img class="icon" src="/icon/{{ pkgname }}" id="icon-{{ pkgname }}" onload="showIcon('{{ pkgname }}');"></img>
                         <div class="title">{{ pkgname }}</div>
                         <div class="description">{{ pkgdesc }}</div>
                         <div class="version">{{ pkgver }}</div>
