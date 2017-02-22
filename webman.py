@@ -11,11 +11,6 @@ from editdistance import eval as levdist
 from subprocess import Popen, PIPE
 
 
-# TODO
-# Display pacman errors
-# AUR support
-
-
 # Flags
 publicHost = True
 port = 1436
@@ -62,7 +57,6 @@ def searchPackages(name):
     results = loadJson('https://aur.archlinux.org/rpc/?v=5&type=search&arg=%s' % name)['results']
     results = sorted(results, key=lambda x: levdist(name, x['Name']))[:100]
     packages += [parsePackage(package, name) for package in results]
-    # Limiting to 5 results temporarily because of extreme slowdown
 
     packages = sorted(packages, key=lambda x: levdist(name, x[0]))[:100]
     return packages
