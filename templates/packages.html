@@ -2,20 +2,20 @@
 {% block body %}
     {% if packages %}
         <div class="card">
-            {% for pkgname, pkgdesc, pkgver, url, installed, expanded in packages %}
+            {% for name, desc, ver, url, installed, expanded, aur in packages %}
                 <div class="packagecontainer">
-                    <div class="{% if expanded %}expanded {% endif %}package" id="package-{{ pkgname }}" onclick="expand('{{ pkgname }}')">
-                        <div class="icon" id="iconph-{{ pkgname }}">{{ pkgname[0].upper() }}</div>
-                        <img class="icon" src="/icon/{{ pkgname }}" id="icon-{{ pkgname }}" onload="showIcon('{{ pkgname }}');"></img>
-                        <div class="title">{{ pkgname }}</div>
-                        <div class="description">{{ pkgdesc }}</div>
-                        <div class="version">{{ pkgver }}</div>
+                    <div class="{% if expanded %}expanded {% endif %}package" id="package-{{ name }}" onclick="expand('{{ name }}')">
+                        <div class="icon" id="iconph-{{ name }}">{{ name[0].upper() }}</div>
+                        <img class="icon" src="/icon/{{ name }}" id="icon-{{ name }}" onload="showIcon('{{ name }}');"></img>
+                        <div class="title">{{ name }}</div>
+                        <div class="description">{{ desc }}</div>
+                        <div class="version">{{ ver }}</div>
                     </div>
                     <div class="url"><a href="{{ url }}" target="_blank">{{ url }}</a></div>
                     {% if installed %}
-                        <div class="button uninstall" id="button-{{ pkgname }}" onclick="uninstall('{{ pkgname }}')"></div>
+                        <div class="button uninstall" id="button-{{ name }}" onclick="uninstall('{{ name }}')"></div>
                     {% else %}
-                        <div class="button install" id="button-{{ pkgname }}" onclick="install('{{ pkgname }}')"></div>
+                        <div class="button install" id="button-{{ name }}" onclick="install('{{ name }}')"></div>
                     {% endif %}
                 </div>
             {% endfor %}

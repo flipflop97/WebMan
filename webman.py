@@ -33,12 +33,38 @@ def packageInstalled(pkgname):
     return p.returncode == 0
 
 
+def parsePackage(package, search=''):
+    if 'pkgname' in package:
+        aur = False
+        name = package['pkgname']
+        desc = package['pkgdesc']
+        ver = package['pkgver']
+        url = package['url']
+
+    else:
+        aur = True
+        name = package['Name']
+        desc = package['Description']
+        ver = package['Version']
+        url = package['URL']
+
+    installed = packageInstalled(name)
+    expand = search == name
+
+    return name, desc, ver, url, installed, expand, aur
+
+
 def searchPackages(name):
-    name = name.lower()
     results = loadJson('https://www.archlinux.org/packages/search/json/?q=%s' % name)['results']
-    packages = [(package['pkgname'], package['pkgdesc'], package['pkgver'], package['url'], packageInstalled(package['pkgname']), name == package['pkgname'])
-                for package in results if package['arch'] in (arch, 'any')]
-    packages.sort(key=lambda x: levdist(name, x[0]))
+    results = sorted(results, key=lambda x: levdist(name, x['pkgname']))[:100]
+    packages = [parsePackage(package, name) for package in results if package['arch'] in (arch, 'any')]
+
+    results = loadJson('https://aur.archlinux.org/rpc/?v=5&type=search&arg=%s' % name)['results']
+    results = sorted(results, key=lambda x: levdist(name, x['Name']))[:100]
+    packages += [parsePackage(package, name) for package in results]
+    # Limiting to 5 results temporarily because of extreme slowdown
+
+    packages = sorted(packages, key=lambda x: levdist(name, x[0]))[:100]
     return packages
 
 
@@ -47,7 +73,7 @@ def getUpdates():
     data = p.communicate()
     stdout = [text.split() for text in data[0].decode('utf-8').split('\n') if text]
     results = [getPackageInfo(line[0]) for line in stdout]
-    packages = [(package['pkgname'], package['pkgdesc'], package['pkgver'], package['url']) for package in results]
+    packages = [parsePackage(package) for package in results]
     return packages
 
 
@@ -56,8 +82,11 @@ def getPackageInfo(packageName):
         packageInfo = loadJson('https://www.archlinux.org/packages/search/json/?name=%s' % packageName)
         packageInfo = next(info for info in packageInfo['results'] if info['arch'] in (arch, 'any'))
     except:
-        packageInfo = None
-        # packageInfo = loadJson('https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=%s' % packageName)
+        try:
+            packageInfo = loadJson('https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=%s' % packageName)
+            packageInfo = next(info for info in packageInfo['results'])
+        except:
+            packageInfo = None
     return packageInfo
 
 
@@ -68,15 +97,18 @@ def getShortcutIcon(pkgname):
         getShortcutIcon.cache = {}
     except KeyError:
         try:
-            packageUrl = getPackageInfo(pkgname)['url']  # Slow
+            packageUrl = parsePackage(getPackageInfo(pkgname))[3]
             pool = PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=where())
-            pageRequest = pool.request('GET', packageUrl, timeout=0.5)  # Very slow
+            pageRequest = pool.request('GET', packageUrl, timeout=0.5)
             pageContent = pageRequest.data
             pageSoup = BeautifulSoup(pageContent, 'html.parser')
             iconLink = pageSoup.find('link', rel='icon')['href']
             getShortcutIcon.cache[pkgname] = urljoin(packageUrl, iconLink)
         except:
-            getShortcutIcon.cache[pkgname] = urljoin(packageUrl, '/favicon.ico')
+            try:
+                getShortcutIcon.cache[pkgname] = urljoin(packageUrl, '/favicon.ico')
+            except:
+                getShortcutIcon.cache[pkgname] = None
 
     return getShortcutIcon(pkgname)
 
@@ -93,9 +125,9 @@ def root():
 
 @app.route('/search/<pkgname>')
 def search(pkgname):
+    pkgname = pkgname.lower()
     packages = searchPackages(pkgname)
     return render_template('packages.html', packages=packages)
-
 
 @app.route('/updates')
 def updates():
@@ -105,19 +137,26 @@ def updates():
 
 @app.route('/icon/<pkgname>')
 def icon(pkgname):
+    pkgname = pkgname.lower()
     icon = getShortcutIcon(pkgname)
     if icon is None:
         return ''
-
     return redirect(icon)
 
 
 @app.route('/install/<pkgname>')
 def install(pkgname):
+    pkgname = pkgname.lower()
     p = Popen(['pkexec', 'pacman', '-S', '--noconfirm', pkgname], stderr=PIPE, stdout=PIPE)
     data = p.communicate()
     return str(p.returncode)
 
+@app.route('/uninstall/<pkgname>')
+def uninstall(pkgname):
+    pkgname = pkgname.lower()
+    p = Popen(['pkexec', 'pacman', '-Rn', '--noconfirm', pkgname], stderr=PIPE, stdout=PIPE)
+    data = p.communicate()
+    return str(p.returncode)
 
 @app.route('/update')
 def update():
@@ -126,17 +165,9 @@ def update():
     return str(p.returncode)
 
 
-@app.route('/uninstall/<pkgname>')
-def uninstall(pkgname):
-    p = Popen(['pkexec', 'pacman', '-Rn', '--noconfirm', pkgname], stderr=PIPE, stdout=PIPE)
-    data = p.communicate()
-    return str(p.returncode)
-
-
 @app.errorhandler(404)
 def e404(_):
     return render_template('message.html', message='Sorry, this page doesn\'t exist.')
-
 
 @app.errorhandler(500)
 def e500(_):
