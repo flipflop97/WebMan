@@ -194,6 +194,10 @@ div.package.expanded > div.title {
     top: 20px;
     font-size: 24px;
 }
+div.package.aur > div.title::after {
+    content: ' AUR';
+    color: rgba(0, 0, 0, 0.54);
+}
 
 div.package > div.description {
     position: absolute;
