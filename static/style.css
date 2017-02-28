@@ -42,15 +42,17 @@ div.headercontent {
 
 div.headercontent > img.logo {
     position: absolute;
-    left: 12px;
-    top: 12px;
+    left: 8px;
+    top: 8px;
+    padding: 4px;
     width: 32px;
     height: 32px;
     cursor: pointer;
-    opacity: 0.7;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.0);
 }
 div.headercontent > img.logo:hover {
-    opacity: 1.0;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 div.headercontent > input[type=search] {
@@ -72,21 +74,20 @@ div.headercontent > input[type=search]::-webkit-input-placeholder {
 div.headercontent > input[type=search]::-moz-placeholder {
     color: #FFFFFF;
 }
-div.headercontent > input[type=search]:focus {
-    background: rgba(255, 255, 255, 0.3);
-}
 
 div.headercontent > img.updates {
     position: absolute;
-    right: 12px;
-    top: 12px;
+    right: 8px;
+    top: 8px;
+    padding: 4px;
     width: 32px;
     height: 32px;
-    opacity: 0.7;
     cursor: pointer;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.0);
 }
 div.headercontent > img.updates:hover {
-    opacity: 1.0;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 div.content > div.card {
@@ -279,10 +280,10 @@ div.packagecontainer > div.button.install:hover {
 }
 /* Disable install button for AUR packages until fixed */
 div.package.aur ~ div.button.install {
-    display: none;
+    background: #9E9E9E;
 }
 div.package.aur ~ div.button.install:hover {
-    display: none;
+    background: #9E9E9E;
 }
 
 div.packagecontainer > div.button.uninstall::before {

@@ -13,6 +13,7 @@
                         <div class="version">{{ ver }}</div>
                     </div>
                     <div class="url"><a href="{{ url }}" target="_blank">{{ url }}</a></div>
+                    <div class="button uninstall" id="button-{{ name }}" onclick="uninstall('{{ name }}')"></div>
                 </div>
             {% endfor %}
         </div>
