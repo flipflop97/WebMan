@@ -25,12 +25,12 @@ div.header {
 
 div.content {
     margin: 0px auto 0px auto;
-    padding: 88px 0px 0px 0px;
+    padding: 88px 0px 16px 0px;
     max-width: 720px;
     z-index: 5;
 }
 div.content > * {
-    margin: 0px 0px 32px 0px;
+    margin: 0px 0px 16px 0px;
 }
 
 div.headercontent {
@@ -111,6 +111,7 @@ div.content > div.update {
     border-radius: 4px;
     line-height: 16px;
     margin-left: auto;
+    margin-right: 12px;
 }
 div.content > div.update::before {
     content: 'Busy';
