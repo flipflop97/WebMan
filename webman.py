@@ -9,6 +9,8 @@ from bs4 import BeautifulSoup
 from platform import machine
 from editdistance import eval as levdist
 from subprocess import Popen, PIPE
+import os
+import shutil
 
 
 # Flags
@@ -107,6 +109,31 @@ def getShortcutIcon(pkgname):
     return getShortcutIcon(pkgname)
 
 
+def aurpkg(pkgname):
+    cwd = '/tmp/webman/%s/' % pkgname
+    if os.path.isdir(cwd):
+        shutil.rmtree(cwd)
+
+    p = Popen(['git', 'clone', 'https://aur.archlinux.org/%s.git' % pkgname], cwd='/tmp/webman/', stderr=PIPE, stdout=PIPE)
+    data = p.communicate()
+    if p.returncode != 0:
+        return str(p.returncode)
+
+    p = Popen(['makepkg'], cwd=cwd, stderr=PIPE, stdout=PIPE)
+    data = p.communicate()
+    if p.returncode != 0:
+        return str(p.returncode)
+
+    pkgtar = next(fil for fil in os.listdir(cwd) if fil.endswith(".pkg.tar.xz"))
+    p = Popen(['pkexec', 'pacman', '-U', '--noconfirm', cwd+pkgtar], stderr=PIPE, stdout=PIPE)
+    data = p.communicate()
+    if p.returncode != 0:
+        return str(p.returncode)
+
+    shutil.rmtree(cwd)
+
+    return '0'
+
 
 app = Flask(__name__)
 arch = machine()
@@ -141,9 +168,12 @@ def icon(pkgname):
 @app.route('/install/<pkgname>')
 def install(pkgname):
     pkgname = pkgname.lower()
-    p = Popen(['pkexec', 'pacman', '-S', '--noconfirm', pkgname], stderr=PIPE, stdout=PIPE)
-    data = p.communicate()
-    return str(p.returncode)
+    if parsePackage(getPackageInfo(pkgname))[6]:
+        return aurpkg(pkgname)
+    else:
+        p = Popen(['pkexec', 'pacman', '-S', '--noconfirm', pkgname], stderr=PIPE, stdout=PIPE)
+        data = p.communicate()
+        return str(p.returncode)
 
 @app.route('/uninstall/<pkgname>')
 def uninstall(pkgname):
