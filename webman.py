@@ -95,7 +95,7 @@ def getShortcutIcon(pkgname):
         try:
             packageUrl = parsePackage(getPackageInfo(pkgname))[3]
             pool = PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=where())
-            pageRequest = pool.request('GET', packageUrl, timeout=0.5)
+            pageRequest = pool.request('GET', packageUrl, timeout=3.0)
             pageContent = pageRequest.data
             pageSoup = BeautifulSoup(pageContent, 'html.parser')
             iconLink = pageSoup.find('link', rel='icon')['href']
