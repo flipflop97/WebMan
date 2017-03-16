@@ -148,7 +148,7 @@ def root():
 def search(pkgname):
     pkgname = pkgname.lower()
     packages = searchPackages(pkgname)
-    return render_template('packages.html', packages=packages)
+    return render_template('packages.html', packages=packages, searchterm=pkgname)
 
 @app.route('/updates')
 def updates():
