@@ -20,7 +20,7 @@ port = 1436
 
 def loadJson(url):
     pool = PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=where())
-    request = pool.request('GET', url, timeout=0.5)
+    request = pool.request('GET', url, timeout=10)
     return loads(request.data)
 
 
